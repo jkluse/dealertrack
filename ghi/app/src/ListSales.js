@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react"
 
 function ListSales() {
-  const [models, setModels] = useState([]);
+  const [sales, setSales] = useState([]);
 
 	async function fetchModels() {
-		const res = await fetch("http://localhost:8100/api/models/");
+		const res = await fetch("http://localhost:8090/api/sales/");
 		if (res.ok) {
 			const data = await res.json();
 			console.log(data);
-			setModels(data.models);
+			setSales(data.sales);
 		}
 	}
 
@@ -18,27 +18,25 @@ function ListSales() {
 
 	return (
 		<div className="container my-5">
-			<h2>Manufacturers</h2>
+			<h2>Sales</h2>
 			<table className={"table table-striped"}>
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th>Manufacturer</th>
-						<th>Picture</th>
+						<th>Salesperson Employee ID</th>
+						<th>Salesperson Name</th>
+						<th>Customer</th>
+						<th>VIN</th>
+						<th>Price</th>
 					</tr>
 				</thead>
 				<tbody>
-					{models.map((m) => (
-						<tr key={m.id}>
-							<td>{m.name}</td>
-							<td>{m.manufacturer.name}</td>
-							<td>
-								<img
-									style={{ height: "80px" }}
-									src={m.picture_url}
-									alt={`${m.name} ${m.manufacturer.name}`}
-								></img>
-							</td>
+					{sales.map((s) => (
+						<tr key={s.id}>
+							<td>{s.salesperson.employee_id}</td>
+							<td>{s.salesperson.first_name} {s.salesperson.last_name}</td>
+							<td>{s.customer.first_name} {s.customer.last_name}</td>
+              <td>{s.automobile.vin}</td>
+              <td>{s.price}</td>
 						</tr>
 					))}
 				</tbody>
