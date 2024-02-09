@@ -5,30 +5,26 @@ from .models import Technician, Appointment, AutomobileVO
 class TechnicianListEncoder(ModelEncoder):
   model = Technician
   properties = [
+    "id",
     "first_name",
     "last_name",
     "employee_id"
   ]
 
-# from .models import Automobile, Manufacturer, VehicleModel
 
+class AppointmentEncoder(ModelEncoder):
+  model = Appointment
+  properties = [
+    "id",
+    "date_time",
+    "reason",
+    "status",
+    "vin",
+    "customer",
+    "technician",
+    "isVIP"
+  ]
+  encoders = {
+    "technician": TechnicianListEncoder()
+  }
 
-# class ManufacturerEncoder(ModelEncoder):
-#     model = Manufacturer
-#     properties = [
-#         "id",
-#         "name",
-#     ]
-
-
-# class VehicleModelEncoder(ModelEncoder):
-#     model = VehicleModel
-#     properties = [
-#         "id",
-#         "name",
-#         "picture_url",
-#         "manufacturer",
-#     ]
-#     encoders = {
-#         "manufacturer": ManufacturerEncoder(),
-#     }

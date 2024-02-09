@@ -11,16 +11,24 @@ django.setup()
 
 # Import models from sales_rest, here.
 # from sales_rest.models import Something
+from sales_rest.models import AutomobileVO
 
 
 def poll():
     while True:
         print('Sales poller polling for data')
         try:
-            # Write your polling logic, here
-            # Do not copy entire file
+            response = requests.get("http://dealertrack-inventory-api-1:8000/api/automobiles/")
+            content = json.loads(response.content)
+            # print("CONTENT", content)
+            for auto in content["autos"]:
+                AutomobileVO.objects.update_or_create(
+                vin=auto["vin"],
+                defaults={
+                    "sold": auto["sold"],
 
-            pass
+                },
+            )
         except Exception as e:
             print(e, file=sys.stderr)
 

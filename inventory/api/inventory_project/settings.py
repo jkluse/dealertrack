@@ -51,7 +51,7 @@ MIDDLEWARE = [
 
 ALLOWED_HOSTS = [
     "localhost",
-    "project-beta-inventory-api-1",
+    "dealertrack-inventory-api-1",
 ]
 
 CSRF_TRUSTED_ORIGINS = [

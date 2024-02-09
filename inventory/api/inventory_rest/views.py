@@ -30,12 +30,20 @@ def api_automobiles(request):
                 encoder=AutomobileEncoder,
                 safe=False,
             )
-        except:
-            response = JsonResponse(
-                {"message": "Could not create the automobile"}
-            )
-            response.status_code = 400
-            return response
+        except Exception as e:
+            exc_type = type(e).__name__
+            exc_value = str(e)
+            print({
+                    "type": exc_type,
+                    "value": exc_value
+                })
+            return JsonResponse({
+                "message": "Could not create the automobile",
+                "exception": {
+                    "type": exc_type,
+                    "value": exc_value
+                }
+            }, status=400)
 
 
 @require_http_methods(["DELETE", "GET", "PUT"])

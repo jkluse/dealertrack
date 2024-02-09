@@ -2,6 +2,7 @@ from json import JSONEncoder
 from django.urls import NoReverseMatch
 from django.db.models import QuerySet
 from datetime import datetime, date
+from decimal import Decimal
 
 
 class DateEncoder(JSONEncoder):
@@ -19,8 +20,15 @@ class QuerySetEncoder(JSONEncoder):
         else:
             return super().default(o)
 
+class DecimalEncoder(JSONEncoder):
+    def default(self, o):
+        if isinstance(o, Decimal):
+            return str(o)  # Convert Decimal to string for JSON serialization
+        else:
+            return super().default(o)
 
-class ModelEncoder(DateEncoder, QuerySetEncoder, JSONEncoder):
+
+class ModelEncoder(DecimalEncoder, DateEncoder, QuerySetEncoder, JSONEncoder):
     encoders = {}
 
     def default(self, o):
