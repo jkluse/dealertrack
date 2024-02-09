@@ -33,16 +33,16 @@ function Nav() {
 									</button>
 									<ul className="dropdown-menu">
 										<li>
+											<NavLink className="dropdown-item" to="technicians/">
+												Technicians List
+											</NavLink>
+										</li>
+										<li>
 											<NavLink
 												className="dropdown-item "
 												to="technicians/create/"
 											>
-												Add Technician
-											</NavLink>
-										</li>
-										<li>
-											<NavLink className="dropdown-item" to="technicians/">
-												List Technicians
+												Create Technician
 											</NavLink>
 										</li>
 									</ul>
@@ -60,16 +60,16 @@ function Nav() {
 									</button>
 									<ul className="dropdown-menu">
 										<li>
+											<NavLink className="dropdown-item" to="appointments/">
+												Appointments List
+											</NavLink>
+										</li>
+										<li>
 											<NavLink
 												className="dropdown-item "
 												to="appointments/create/"
 											>
-												Schedule Service Appointment
-											</NavLink>
-										</li>
-										<li>
-											<NavLink className="dropdown-item" to="appointments/">
-												Appointments
+												Create Service Appointment
 											</NavLink>
 										</li>
 										<li>
@@ -127,10 +127,7 @@ function Nav() {
 											</NavLink>
 										</li>
 										<li>
-											<NavLink
-												className="dropdown-item"
-												to="models/create/"
-											>
+											<NavLink className="dropdown-item" to="models/create/">
 												Create Model
 											</NavLink>
 										</li>
@@ -208,10 +205,7 @@ function Nav() {
 											</NavLink>
 										</li>
 										<li>
-											<NavLink
-												className="dropdown-item"
-												to="customers/create/"
-											>
+											<NavLink className="dropdown-item" to="customers/create/">
 												Create Customer
 											</NavLink>
 										</li>
@@ -235,18 +229,12 @@ function Nav() {
 											</NavLink>
 										</li>
 										<li>
-											<NavLink
-												className="dropdown-item"
-												to="sales/create/"
-											>
+											<NavLink className="dropdown-item" to="sales/create/">
 												Create Sale
 											</NavLink>
 										</li>
 										<li>
-											<NavLink
-												className="dropdown-item"
-												to="sales/history/"
-											>
+											<NavLink className="dropdown-item" to="sales/history/">
 												Salesperson History
 											</NavLink>
 										</li>
