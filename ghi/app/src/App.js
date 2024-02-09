@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./MainPage";
 import Nav from "./Nav";
 import CreateTechnician from "./CreateTechnician";
-import TechnicianList from "./TechnicianList";
+import ListTechnicians from "./ListTechnicians";
 import ServiceList from "./ServiceList";
 import ServiceHistory from "./ServiceHistory";
 import ManufacturerList from "./ManufacturerList";
@@ -28,7 +28,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<MainPage />} />
 					<Route path="technicians/">
-						<Route path="" element={<TechnicianList />} />
+						<Route path="" element={<ListTechnicians />} />
 						<Route path="create/" element={<CreateTechnician />} />
 					</Route>
 					<Route path="appointments/">

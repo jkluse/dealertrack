@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function TechnicianList() {
+function ListTechnicians() {
 	const [technicians, setTechnicians] = useState([]);
 
 
@@ -42,4 +42,4 @@ function TechnicianList() {
 		</div>
 	);
 }
-export default TechnicianList;
+export default ListTechnicians;
