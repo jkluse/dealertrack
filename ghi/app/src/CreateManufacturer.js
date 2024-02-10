@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import AlertError from "./AlertError";
+import AlertSuccess from "./AlertSuccess";
 
 function CreateManufacturer() {
   const [name, setName] = useState('')
@@ -71,12 +73,8 @@ function CreateManufacturer() {
 								<label htmlFor="name">Name</label>
 							</div>
 							<button className="btn btn-primary" >Create</button>
-              {showSuccess &&
-      <div className="alert alert-success alert-dismissible fade show mt-2" role="alert">
-      <strong>Success!</strong> New Manufacturer added!
-      <button onClick={handleSuccessClick} type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-      }
+              <AlertSuccess showSuccess={showSuccess}  handleSuccessClick={handleSuccessClick} elementType="Manufacturer" />
+              <AlertError showError={showError} handleErrorClick={handleErrorClick}/>
       {showError &&
       <div className="alert alert-warning alert-dismissible fade show mt-2" role="alert">
       <strong>💥 Ooops, something went wrong!</strong> Please try again or contact your administrator.

@@ -3,17 +3,17 @@ import { useState, useEffect } from "react";
 function ServiceHistory() {
 	const [appointments, setAppointments] = useState([]);
   const [searchText, setSearchText] = useState("")
+	const [filteredAppointments, setFilteredAppointments] = useState([])
+	const [filterField, setFilterField] = useState('VIN')
 
 	async function fetchAppointments() {
 
     const res = await fetch("http://localhost:8080/api/appointments/");
 		if (res.ok) {
       const data = await res.json();
-      const filteredData = data.appointments.filter(appt => (
-        appt.vin.toLowerCase().includes(searchText)
-      ))
-      console.log('data', filteredData)
-			setAppointments(filteredData);
+			// console.log(data)
+			setAppointments(data.appointments);
+			setFilteredAppointments(data.appointments);
 		}
 	}
 
@@ -22,18 +22,50 @@ function ServiceHistory() {
 	}, []);
 
   async function handleSearchChange(e){
-    await setSearchText(e.target.value)
-    fetchAppointments(e.target.value)
+		const searchVal = e.target.value
+		setSearchText(searchVal)
+		if (searchVal === ''){
+			setFilteredAppointments(appointments)
+		} else {
+			if (filterField === "Technician"){
+				setFilteredAppointments(appointments.filter(appt => (
+					appt[filterField.toLowerCase()].first_name.toUpperCase().startsWith(searchVal.toUpperCase())
+				)))
+			} else{
+				setFilteredAppointments(appointments.filter(appt => (
+					appt[filterField.toLowerCase()].toUpperCase().startsWith(searchVal.toUpperCase())
+				)))
+			}
+		}
   }
+
+	function handleFilterFieldChange(e){
+		e.preventDefault()
+		setFilteredAppointments(appointments)
+		setSearchText("")
+		e.target.value = ""
+		const property = e.target.getAttribute("data-value")
+		setFilterField(property)
+	}
 
 
 	return (
 		<div className="container my-5">
-			<h2>Service Appointments</h2>
-      <form className="d-flex">
-        <input onChange={handleSearchChange} className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>
+			<h2>Service History</h2>
+			<div className="input-group mb-3">
+        <input onChange={handleSearchChange} value={searchText} type="text" placeholder="Search" className="form-control" aria-label="Text input with dropdown button" />
+        <button className="btn btn-outline-secondary dropdown-toggle btn-outline-success" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {filterField}
+        </button>
+        <ul className="dropdown-menu dropdown-menu-end">
+            <li><a className="dropdown-item" href="." data-value="VIN" onClick={handleFilterFieldChange}>VIN</a></li>
+            <li><a className="dropdown-item" href="." data-value="Customer" onClick={handleFilterFieldChange}>Customer</a></li>
+            <li><a className="dropdown-item" href="." data-value="Technician" onClick={handleFilterFieldChange}>Technician</a></li>
+            <li><hr className="dropdown-divider" /></li>
+
+        </ul>
+    </div>
+
 			<table className={"table table-striped"}>
 				<thead>
 					<tr>
@@ -48,7 +80,7 @@ function ServiceHistory() {
 					</tr>
 				</thead>
 				<tbody>
-					{appointments.map((appt) => (
+					{filteredAppointments.map((appt) => (
 						<tr key={appt.id}>
 							<td>{appt.vin}</td>
 							<td>{appt.isVIP ? "Yes": "No"}</td>

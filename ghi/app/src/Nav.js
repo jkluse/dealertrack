@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import logo from "./dealerTrackLogo_white.svg";
 
 function Nav() {
 	return (
@@ -6,8 +7,14 @@ function Nav() {
 			<nav className="navbar navbar-expand-lg navbar-dark bg-success">
 				<div className="container-fluid">
 					<NavLink className="navbar-brand" to="/">
-						dealerTRACK
+						<img
+							src={logo}
+							style={{ height: "80px" }}
+							className="me-2"
+							alt="dealerTrack logo"
+						/>
 					</NavLink>
+
 					<button
 						className="navbar-toggler"
 						type="button"
